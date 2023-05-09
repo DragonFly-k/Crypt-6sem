@@ -86,10 +86,3 @@ a[0].bar(list(message_probs.keys()), message_probs.values(), color='g')
 a[1].set_title('Зашифрованное сообщение')
 a[1].bar(list(encrypted_probs.keys()), encrypted_probs.values(), color='b')
 plt.show()
-
-# keys_string =   "VZBRGITYUPSDNHLXAWMJQOFECK"
-# values_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-# original_dict = dict(zip(keys_string, values_string))
-# sorted_keys = sorted(original_dict.keys())
-# values_string_sorted = ''.join([original_dict[values] for values in sorted_keys])
-# print(values_string_sorted)
