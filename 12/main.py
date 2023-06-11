@@ -42,31 +42,19 @@ if vk.verify(signature, hash_obj, sigdecode=ecdsa.util.sigdecode_der):
 else:
     print("Подпись недействительна.")
 
-sks = ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
+# Генерация ключевой пары Эль-Гамаля
+ke = ElGamal.generate(2048, Random.get_random_bytes)
+
+# Подписание сообщения Эль-Гамаля
 start_time = time.time()
-hash_obj = hashlib.sha256(message).digest()
-signature = sks.sign(hash_obj, sigencode=ecdsa.util.sigencode_der)
+hash_obj = SHA256.new(message)
+k = getRandomRange(1, ke.q)
+signature = ke.sign(hash_obj, k)
 end_time = time.time()
 print(f"Время подписи сообщения Эль-Гамаля: {end_time - start_time} секунд")
-vk = sks.get_verifying_key()
-if vk.verify(signature, hash_obj, sigdecode=ecdsa.util.sigdecode_der):
+
+# Проверка подписи Эль-Гамаля
+if ke.verify(hash_obj, signature):
     print("Подпись действительна.")
 else:
     print("Подпись недействительна.")
-#
-# # Генерация ключевой пары Эль-Гамаля
-# ke = ElGamal.generate(2048, Random.get_random_bytes)
-#
-# # Подписание сообщения Эль-Гамаля
-# start_time = time.time()
-# hash_obj = SHA256.new(message)
-# k = getRandomRange(1, ke.q)
-# signature = ke.sign(hash_obj, k)
-# end_time = time.time()
-# print(f"Время подписи сообщения Эль-Гамаля: {end_time - start_time} секунд")
-#
-# # Проверка подписи Эль-Гамаля
-# if ke.verify(hash_obj, signature):
-#     print("Подпись действительна.")
-# else:
-#     print("Подпись недействительна.")
